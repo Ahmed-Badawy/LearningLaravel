@@ -41,8 +41,14 @@ Resetful Convertion:-
 				}
 //other thing in relations
 		//if you want to do join operation with multiple levels 
-			$all_cards = Card::with('notes').find(1); //this means get the cards & inner join the notes attached.
-		//you can also add multiple level something init
+			$card = Card::with('notes').find(1); //this means get the cards & inner join the notes attached.
+		//you can also add multiple level inner join
+			$card = Card::with('notes.users').find(1); //git all cards with there notes attached & all notes with their users
+		//same can be done like this:-
+			public function index(Card $card){
+					$card->load('notes.user');
+			}
+
 
 
 
@@ -63,6 +69,11 @@ Resetful Convertion:-
 // hashing for passwords: you can use bycrypt function:  bcrypt('password');
 
 
+
+// Validation
+	$this->validate($request,[
+			'body'=>'required'
+	]); this will fail & redirect back with $errors & also ->withInput();
 
 
 
